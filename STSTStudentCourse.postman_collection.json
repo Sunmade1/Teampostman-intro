@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "cc027eed-edc8-41e0-a12a-c6f815b31ad8",
-		"name": "APICollection",
+		"_postman_id": "1bd6e261-b127-440c-8549-01c26d15a258",
+		"name": "STSTStudentCourse",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "27987672"
 	},
@@ -16,9 +16,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"\r",
-									" \r",
-									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
@@ -117,7 +114,13 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has OK string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -127,9 +130,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}",
+							"raw": "{{baseUrl}}/",
 							"host": [
 								"{{baseUrl}}"
+							],
+							"path": [
+								""
 							],
 							"query": [
 								{
@@ -183,9 +189,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base2Url}}",
+							"raw": "{{base_Url}}",
 							"host": [
-								"{{base2Url}}"
+								"{{base_Url}}"
 							],
 							"query": [
 								{
@@ -204,90 +210,6 @@
 		{
 			"name": "Get Books",
 			"item": [
-				{
-					"name": "Get Books - valid book",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Status code name has string OK\", function () {\r",
-									"    pm.response.to.have.status(\"OK\");\r",
-									"});\r",
-									"     //let jsonData = pm.response.json();\r",
-									"    //console.log(jsonData[2].name);\r",
-									"  \r",
-									"   const response = pm.response.json();\r",
-									"   console.log(response);\r",
-									"   console.log(response[2].id);\r",
-									"\r",
-									"   pm.environment.set(\"justmeID\", response[2].id);\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrlBook}}/books",
-							"host": [
-								"{{baseUrlBook}}"
-							],
-							"path": [
-								"books"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Books - invalid book type",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrlBook}}/books",
-							"host": [
-								"{{baseUrlBook}}"
-							],
-							"path": [
-								"books"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "Get All Books",
 					"event": [
@@ -318,6 +240,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -327,6 +259,248 @@
 							],
 							"path": [
 								"books"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Books Using Valid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"    });\r",
+									"\r",
+									"     const response = pm.response.json();\r",
+									"      console.log(response);\r",
+									"\r",
+									"      console.log(response[2].name);\r",
+									"      console.log(response[3].id);\r",
+									"      \r",
+									"/** pm.test(\"Check weather the book name The Midnight Library is available\", function () {\r",
+									"    var response = pm.response.json();\r",
+									"    pm.expect(response[4].available).to.eql(true);\r",
+									"}); */\r",
+									"\r",
+									"pm.environment.set(\"formeID\", response[3].id);\r",
+									"\r",
+									"console.log(response[2].id);\r",
+									"\r",
+									"pm.environment.set(\"foryouID\", response[2].id);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlBook}}/books?={{ORDER}}",
+							"host": [
+								"{{baseUrlBook}}"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": null,
+									"value": "{{ORDER}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Books Using Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"    });\r",
+									"\r",
+									"     const response = pm.response.json();\r",
+									"      console.log(response);\r",
+									"\r",
+									"      console.log(response[2].name);\r",
+									"      console.log(response[3].id);\r",
+									"      \r",
+									"pm.test(\"Check weather the book name The Midnight Library is available\", function () {\r",
+									"    var response = pm.response.json();\r",
+									"    pm.expect(response[4].available).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlBook}}/books",
+							"host": [
+								"{{baseUrlBook}}"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Books by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has string OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"     //let jsonData = pm.response.json();\r",
+									"    //console.log(jsonData[2].name);\r",
+									"  \r",
+									"   const response = pm.response.json();\r",
+									"   console.log(response);\r",
+									"   console.log(response.id);\r",
+									"\r",
+									"  // pm.environment.set(\"justmeID\", response[2].id);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlBook}}/books/:bookId",
+							"host": [
+								"{{baseUrlBook}}"
+							],
+							"path": [
+								"books",
+								":bookId"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "bookId",
+									"value": "{{ORDER}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Books by Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlBook}}/books?type=fiction",
+							"host": [
+								"{{baseUrlBook}}"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "fiction"
+								}
 							]
 						}
 					},
@@ -344,7 +518,26 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if true is in the body\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"true\");\r",
+									"});\r",
+									"      const ORDER = pm.response.json();\r",
+									"      console.log(ORDER.orderId);\r",
+									"\r",
+									"\r",
+									"pm.environment.set(\"ORDER\", ORDER.orderId);\r",
+									"\r",
+									" /** const ORDER2 = pm.response.json();\r",
+									" console.log(ORDER2.orderId);\r",
+									"pm.environment.set(\"ORDER2\", ORDER2.orderId);*/"
 								],
 								"type": "text/javascript"
 							}
@@ -356,22 +549,16 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "",
+									"value": "{{Token}}",
 									"type": "string"
 								}
 							]
 						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "justmeID",
-								"value": "3",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"bookId\": {{formeID}},\n    \"customerName\": \"Ismail\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -379,7 +566,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlBook}}/orders",
+							"raw": "{{baseUrlBook}}/orders?orderid={{foryouID}}&orderid={{formeID}}",
 							"host": [
 								"{{baseUrlBook}}"
 							],
@@ -388,9 +575,12 @@
 							],
 							"query": [
 								{
-									"key": "",
-									"value": "",
-									"disabled": true
+									"key": "orderid",
+									"value": "{{foryouID}}"
+								},
+								{
+									"key": "orderid",
+									"value": "{{formeID}}"
 								}
 							]
 						}
@@ -416,7 +606,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "4ffca71810c563450a6bf01d67e1ffd6925b9e0393b721fc6e26ed0ee39d54c5",
+									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
 									"type": "string"
 								}
 							]
@@ -425,7 +615,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"bookId\": 1,\n    \"customerName\": \"Testify Academy\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -439,13 +629,6 @@
 							],
 							"path": [
 								"orders"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -470,7 +653,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "4ffca71810c563450a6bf01d67e1ffd6925b9e0393b721fc6e26ed0ee39d54c5",
+									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
 									"type": "string"
 								}
 							]
@@ -479,7 +662,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"bookId\": 1,\n    \"customerName\": \"Testify Academy\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -493,13 +676,6 @@
 							],
 							"path": [
 								"orders"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -532,7 +708,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "4ffca71810c563450a6bf01d67e1ffd6925b9e0393b721fc6e26ed0ee39d54c5",
+									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
 									"type": "string"
 								}
 							]
@@ -549,9 +725,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlBook}}/orders",
+							"raw": "https://simple-books-api.glitch.me/orders",
+							"protocol": "https",
 							"host": [
-								"{{baseUrlBook}}"
+								"simple-books-api",
+								"glitch",
+								"me"
 							],
 							"path": [
 								"orders"
@@ -568,13 +747,38 @@
 					"response": []
 				},
 				{
-					"name": "Get an order - using a valid order number",
+					"name": "Get an order - using orderID",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check weather the bookId is 4\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.bookId).to.eql(4);\r",
+									"});\r",
+									" \r",
+									" var jsonData = pm.response.json();\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(jsonData.customerName).to.include(\"Ismail\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"verify that the quantity of odered book is 1\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.quantity).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"/** pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(jsonData).to.include(\"timestamp\");\r",
+									"});*/"
 								],
 								"type": "text/javascript"
 							}
@@ -589,7 +793,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "4ffca71810c563450a6bf01d67e1ffd6925b9e0393b721fc6e26ed0ee39d54c5",
+									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
 									"type": "string"
 								}
 							]
@@ -614,10 +818,17 @@
 								"orders",
 								":orderId"
 							],
+							"query": [
+								{
+									"key": "",
+									"value": "{{ORDER2}}",
+									"disabled": true
+								}
+							],
 							"variable": [
 								{
 									"key": "orderId",
-									"value": ""
+									"value": "{{ORDER}}"
 								}
 							]
 						}
@@ -625,7 +836,39 @@
 					"response": []
 				},
 				{
-					"name": "Get an order - using an invalid order number",
+					"name": "Get an order - using orderID Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check weather the bookId is 4\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.bookId).to.eql(4);\r",
+									"});\r",
+									" \r",
+									" var jsonData = pm.response.json();\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(jsonData.customerName).to.include(\"Ismail\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"verify that the quantity of odered book is 1\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.quantity).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -635,7 +878,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "4ffca71810c563450a6bf01d67e1ffd6925b9e0393b721fc6e26ed0ee39d54c5",
+									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
 									"type": "string"
 								}
 							]
@@ -652,7 +895,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlBook}}/orders/:orderId",
+							"raw": "{{baseUrlBook}}/orders/:orderId?={{ORDER2}}",
 							"host": [
 								"{{baseUrlBook}}"
 							],
@@ -660,37 +903,56 @@
 								"orders",
 								":orderId"
 							],
+							"query": [
+								{
+									"key": "",
+									"value": "{{ORDER2}}"
+								}
+							],
 							"variable": [
 								{
 									"key": "orderId",
-									"value": ""
+									"value": "{{ORDER}}"
 								}
 							]
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Update an order",
+			"item": [
 				{
-					"name": "Get an order - using no order ID",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "Update an order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "03c5abfe090876ab74a2a2ac4c079174a35fd88c9b88cd2164ff4b9d56c31d6c",
+									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
 									"type": "string"
 								}
 							]
 						},
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"bookId\": 1,\n    \"customerName\": \"Testify Academy\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -698,18 +960,22 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlBook}}/orders/:orderId",
+							"raw": "https://simple-books-api.glitch.me/orders/",
+							"protocol": "https",
 							"host": [
-								"{{baseUrlBook}}"
+								"simple-books-api",
+								"glitch",
+								"me"
 							],
 							"path": [
 								"orders",
-								":orderId"
+								""
 							],
-							"variable": [
+							"query": [
 								{
-									"key": "orderId",
-									"value": ""
+									"key": "",
+									"value": "",
+									"disabled": true
 								}
 							]
 						}
@@ -722,13 +988,19 @@
 			"name": "Delete an order",
 			"item": [
 				{
-					"name": "Delete an order - using invalid order ID",
+					"name": "Delete an order",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"No Content\");\r",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -740,7 +1012,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "4ffca71810c563450a6bf01d67e1ffd6925b9e0393b721fc6e26ed0ee39d54c5",
+									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
 									"type": "string"
 								}
 							]
@@ -765,118 +1037,17 @@
 								"orders",
 								":orderId"
 							],
-							"variable": [
+							"query": [
 								{
-									"key": "orderId",
-									"value": ""
+									"key": "",
+									"value": "{{ORDER}}",
+									"disabled": true
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete an order - using no order ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "4ffca71810c563450a6bf01d67e1ffd6925b9e0393b721fc6e26ed0ee39d54c5",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrlBook}}/orders/:orderId",
-							"host": [
-								"{{baseUrlBook}}"
-							],
-							"path": [
-								"orders",
-								":orderId"
 							],
 							"variable": [
 								{
 									"key": "orderId",
-									"value": ""
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete an order - using valid order ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "4ffca71810c563450a6bf01d67e1ffd6925b9e0393b721fc6e26ed0ee39d54c5",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrlBook}}/orders/:orderId",
-							"host": [
-								"{{baseUrlBook}}"
-							],
-							"path": [
-								"orders",
-								":orderId"
-							],
-							"variable": [
-								{
-									"key": "orderId",
-									"value": ""
+									"value": "{{ORDER}}"
 								}
 							]
 						}
@@ -884,6 +1055,104 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Register API Client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessTokenUrl",
+							"value": "https://demo.fusio-project.org/",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "Authority",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"clientName\": \"Ibironke\",\n   \"clientEmail\": \"ibironkeyekinni@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/api-clients/",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"api-clients",
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get API Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/status",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
